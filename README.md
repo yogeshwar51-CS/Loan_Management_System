@@ -1,38 +1,27 @@
-# Loan_Management_System
-Full-stack loan management system built with Python, Flask, and MySQL with features like EMI calculation and transaction tracking
-## Important Note (Folder Structure)
-Due to GitHub upload limitations, some files may appear with paths like:
-templates/file.html instead of inside a visible folder.
+# Loan Management System
 
-However, while running the project locally, please make sure the folder structure is organized as follows:
+Full-stack loan management system built using Python, Flask, and MySQL with features like EMI calculation and transaction tracking.
 
+## Features
+- User Management
+- Loan Creation and Tracking
+- EMI Calculation
+- Payment Tracking
+- Admin Dashboard
+
+## Technologies Used
+- Python
+- Flask
+- MySQL
+- HTML, CSS
+
+## Project Structure
 loan-management-system/
 │
-├── static/
-│   ├── images
-│
-├── templates/
-│   ├── login.html
-│   ├── base.html( css, js files)
-│   ├── admin.html
-│   ├── user pages
-│   └── other HTML files
-│
-├── app.py
-├── db_config.py
-
-## How to Fix Structure After Download
-After downloading or cloning the repository:
-
-1. Create folders manually if not present:
-   - Create a folder named `templates`
-   - Create a folder named `static`
-
-2. Move files accordingly:
-   - Move all `templates/*.html` files into the `templates` folder
-   - Move all `static/*` files into the `static` folder
-
-3. Ensure the structure matches the one shown above before running the project.
+├── static/          # Contains images,
+├── templates/       # HTML templates (login, admin, user pages)(*base.html contain  CSS, JS files)
+├── app.py           # Main Flask application
+├── db_config.py     # Database configuration
 
 ## Software Requirements
 Make sure the following are installed:
@@ -44,9 +33,9 @@ Make sure the following are installed:
 ## Database Setup
 - Create a MySQL database
 - Update credentials in `db_config.py`
-- Import required tables (if applicable)
+- Ensure required tables are created
 
-## Running the Project (Quick Steps)
+## How to Run
 1. Install dependencies:
    pip install flask mysql-connector-python
 
@@ -57,6 +46,9 @@ Make sure the following are installed:
    http://127.0.0.1:5000/
 
 ## Troubleshooting
-- If templates are not loading → check `templates/` folder structure
-- If static files not working → check `static/` folder placement
-- If database error → verify MySQL credentials in `db_config.py`
+- If templates are not loading → verify `templates/` folder
+- If static files are not loading → verify `static/` folder
+- If database error → check MySQL credentials in `db_config.py`
+
+## Author
+Yogeshwar Udayagiri
