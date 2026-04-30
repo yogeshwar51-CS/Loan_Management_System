@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Transactions</h2>
+
+<table>
+    <tr>
+        <th>Transaction ID</th>
+        <th>Loan ID</th>
+        <th>User ID</th>
+        <th>User</th>
+        <th>Amount</th>
+        <th>Method</th>
+        <th>Type</th>
+        <th>Date</th>
+    </tr>
+
+    {% for t in transactions %}
+    <tr style="cursor:pointer;">
+
+        <!-- Transaction ID -->
+        <td>{{ t[0] }}</td>
+
+        <!-- Loan ID -->
+        <td>
+            <span class="badge">
+                {{ t[1] }}
+            </span>
+        </td>
+
+        <!-- User ID -->
+        <td>{{ t[2] }}</td>
+
+        <!-- User Name -->
+        <td>{{ t[3] }}</td>
+
+        <!-- Amount -->
+        <td>{{ t[4] }}</td>
+
+        <!-- Method -->
+        <td>
+            <span class="method {{ t[5]|lower|replace(' ', '-') }}">
+                {{ t[5] }}
+            </span>
+        </td>
+
+        <!-- Type -->
+       <td>
+                 {% if t[6] == 'Credit' %}
+              <span class="badge" style="background:#d4edda; color:green;">
+           {{ t[6] }}
+         </span>
+           {% else %}
+        <span class="badge" style="background:#f8d7da; color:red;">
+             {{ t[6] }}
+        </span>
+             {% endif %}
+          </td>
+
+        <!-- Date -->
+        <td>
+               {% if t[7] %}
+                {{ t[7] }}
+              {% else %}
+                    -
+              {% endif %}
+        </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Dashboard</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.large {
+    width: 650px;
+}
+
+.btn {
+    display: block;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.green { background: #28a745; }
+.orange { background: #ff9800; }
+.blue { background: #007bff; }
+.red { background: #dc3545; }
+
+.green:hover { background: #218838; }
+.orange:hover { background: #e68900; }
+.blue:hover { background: #0056b3; }
+.red:hover { background: #c82333; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th {
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.active { color: #00ff88; }
+.closed { color: #ff4d4d; }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Welcome {{ name }} 👋
+</div>
+
+<div class="dashboard">
+
+    <!-- ACTIONS -->
+    <div class="card">
+        <h3>Actions</h3>
+
+        <a href="/user_make_payment" class="btn green" style="color:white;">Make Payment</a>
+        <a href="/user_emi" class="btn blue" style="color:white;">EMI Calculator</a>
+        <a href="/user_apply_loan" class="btn orange" style="color:white;">Apply Loan</a>
+        <a href="/user_change_password" class="btn blue" style="color:white;">Change Password</a>
+        <a href="/logout" class="btn red" style="color:white;">Logout</a>
+    </div>
+
+    <!-- LOANS -->
+    <div class="card large">
+        <h3>Your Loans</h3>
+
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Interest</th>
+                <th>Status</th>
+            </tr>
+
+            {% for loan in loans %}
+            <tr>
+                <td>₹ {{ loan[1] }}</td>
+                <td>{{ loan[2] }}%</td>
+                <td>
+                    {% if loan[3] == 'Active' %}
+                        <span class="active">Active</span>
+                    {% else %}
+                        <span class="closed">Closed</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="card large">
+        <h3>Payment History</h3>
+
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Date</th>
+            </tr>
+
+            {% for pay in payments %}
+            <tr>
+                <td>₹ {{ pay[0] }}</td>
+                <td>{{ pay[1] }}</td>
+                <td>{{ pay[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+<!-- ✅ GLOBAL FLASH INCLUDE -->
+{% include 'flash_messages.html' %}
+
+</body>
+</html>

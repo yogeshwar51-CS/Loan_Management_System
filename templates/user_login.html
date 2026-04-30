@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login</title>
+
+    <style>
+body {
+    font-family: 'Segoe UI', Arial;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    text-align: center;
+    margin: 0;
+}
+
+.container {
+    margin-top: 80px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin: auto;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #333;
+}
+
+input {
+    width: 250px;
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h2>User Login</h2>
+
+        <form method="POST">
+            <input type="email" name="email" placeholder="Enter Email" required><br>
+            <input type="password" name="password" placeholder="Enter Password" required><br><br>
+
+            <button type="submit">Login</button>
+        </form>
+
+    </div>
+</div>
+
+<!-- ✅ SweetAlert -->
+
+{% include 'flash_messages.html' %}
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let messages = {{ get_flashed_messages(with_categories=true) | tojson | safe }};
+
+    messages.forEach(function(item) {
+
+        let msg = item[1];
+
+        if (msg.includes("Locked")) {
+
+            let seconds = 60; // default
+
+            Swal.fire({
+                icon: "error",
+                title: msg,
+                html: "Try again in <b id='timer'>60</b> seconds",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+
+            let timer = document.getElementById("timer");
+
+            let interval = setInterval(() => {
+                seconds--;
+                if (timer) timer.innerText = seconds;
+
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    location.reload();
+                }
+            }, 1000);
+        }
+
+    });
+
+});
+</script> -->
+</body>
+</html>

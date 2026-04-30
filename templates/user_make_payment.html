@@ -1,0 +1,164 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Make Payment</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+h2 { text-align: center; }
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+/* ✅ REMOVE NUMBER INPUT ARROWS */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #28a745;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover { background: #218838; }
+
+.info { margin-top: 10px; font-size: 14px; }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Make Payment</h2>
+
+<form method="POST" id="paymentForm">
+
+    <label>Select Loan:</label>
+    <select name="loan_id" id="loanSelect" required>
+        <option value="">Select Loan</option>
+    </select>
+
+    <div class="info" id="loanInfo" style="display:none;">
+        <p>Total Loan: ₹ <span id="total"></span></p>
+        <p>Paid: ₹ <span id="paid"></span></p>
+        <p><b>Remaining: ₹ <span id="remaining"></span></b></p>
+    </div>
+
+    <label>Amount:</label>
+    <input type="number" name="amount" id="amount" placeholder="Enter amount" required>
+
+    <label>Method:</label>
+    <select name="method" required>
+        <option>UPI</option>
+        <option>Cash</option>
+        <option>Card</option>
+        <option>Net Banking</option>
+    </select>
+
+    <button type="submit">Pay</button>
+
+</form>
+
+<a href="/user_dashboard" style="color:white;">⬅ Back</a>
+
+</div>
+
+<script>
+const loans = JSON.parse('{{ loans | tojson | safe }}');
+
+let loanSelect = document.getElementById("loanSelect");
+
+// LOAD LOANS
+loans.forEach(loan => {
+
+    let option = document.createElement("option");
+    option.value = loan[0];
+
+    let remaining = parseFloat(loan[2]);
+
+    if (remaining <= 0) {
+        option.text = `Loan ${loan[0]} (Paid)`;
+        option.disabled = true;
+        option.style.color = "gray";
+    } else {
+        option.text = `Loan ${loan[0]} (₹ ${loan[1]})`;
+    }
+
+    loanSelect.appendChild(option);
+});
+
+// SELECT LOAN
+loanSelect.addEventListener("change", function(){
+
+    let loanId = this.value;
+    if(!loanId) return;
+
+    let loan = loans.find(l => l[0] == loanId);
+
+    let total = parseFloat(loan[1]);
+    let remaining = parseFloat(loan[2]);
+
+    if (remaining < 0) remaining = 0;
+
+    let paid = total - remaining;
+
+    document.getElementById("total").innerText = total;
+    document.getElementById("paid").innerText = paid;
+    document.getElementById("remaining").innerText = remaining;
+
+    document.getElementById("loanInfo").style.display = "block";
+});
+
+// PREVENT OVERPAYMENT
+document.getElementById("paymentForm").addEventListener("submit", function(e){
+
+    let amount = parseFloat(document.getElementById("amount").value);
+    let remaining = parseFloat(document.getElementById("remaining").innerText);
+
+    if(amount > remaining){
+        alert("❌ Cannot pay more than remaining amount");
+        e.preventDefault();
+    }
+
+});
+</script>
+
+
+{% include 'flash_messages.html' %}
+
+</body>
+</html>

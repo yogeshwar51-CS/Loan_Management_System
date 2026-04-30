@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+
+   <style>
+body {
+    font-family: 'Segoe UI', Arial;
+    background: linear-gradient(to right, #918b8bfb, #813838);
+    text-align: center;
+    margin: 0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin: 20px auto;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #333;
+}
+
+input, select {
+    width: 80%;
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+a {
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a:hover {
+    background: #0056b3;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+    width: 80%;
+    background: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #4CAF50;
+    color: white;
+
+}
+/* BUTTON STYLE */
+a, button {
+    display: block;
+    margin: 10px auto;
+    padding: 12px;
+    width: 220px;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* BLUE BUTTONS */
+a:not(.logout) {
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+}
+
+/* 🔥 HOVER EFFECT */
+a:not(.logout):hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+}
+
+/* CLICK EFFECT */
+a:not(.logout):active {
+    transform: scale(0.95);
+}
+
+/* LOGOUT BUTTON */
+.logout {
+    background: red;
+}
+
+/* LOGOUT HOVER */
+.logout:hover {
+    background: darkred;
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+}
+
+
+</style>
+
+</head>
+<body>
+
+<h2>Admin Panel</h2>
+
+<div class="menu">
+   
+    <a href="/add_user">Add User</a>
+   
+    <a href="/add_loan">Add Loan</a>
+    <a href="/view_loans">View Loans</a>
+    <a href="/add_payment">Make Payment</a>
+    
+   
+    <a href="/admin_reset_user_password">Reset User Password</a>
+
+
+    <a href="/logout" class="logout">Logout</a>
+    
+</div>
+
+
+</body>
+</html>
+
+ <!-- <a href="/dashboard">Dashboard</a> -->
+   <!-- <a href="/admin_change_password">Change Admin Password</a> -->
+     <!-- <a href="/view_users">View Users</a> -->
+      <!-- <a href="/emi">EMI Calculator</a> -->

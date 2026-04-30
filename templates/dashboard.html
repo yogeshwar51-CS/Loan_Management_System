@@ -1,0 +1,80 @@
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<div class="dashboard-wrapper">
+
+    <h2 style="margin-top:50px; color:#333;">
+    Welcome to <span style="color:#153d99;">SRM student Loan Management System</span>
+</h2>
+
+    <h2 style="text-align:center;margin-bottom: 55px; color: white;">Dashboard</h2>
+
+    <div class="dashboard-container">
+
+        <!-- USERS -->
+        <a href="/view_users" class="card-link">
+            <div class="card-box">
+                <h3>Total Users</h3>
+                <p>{{ total_users }}</p>
+            </div>
+        </a>
+
+        <!-- TOTAL LOANS -->
+        <a href="/view_loans" class="card-link">
+            <div class="card-box">
+                <h3>Total Loans</h3>
+                <p>{{ total_loans }}</p>
+            </div>
+        </a>
+
+        <!-- TOTAL AMOUNT -->
+        <a href="/view_loans" class="card-link">
+            <div class="card-box">
+                <h3>Total Loan Amount</h3>
+                <p>₹ {{ "{:,.2f}".format(total_amount or 0) }}</p>
+            </div>
+        </a>
+
+        <!-- PAID LOANS -->
+        <a href="/closed_loans" class="card-link">
+            <div class="card-box success">
+                <h3>Paid Loans</h3>
+                <p>{{ closed_loans }}</p>
+            </div>
+        </a>
+
+        <!-- PENDING LOANS -->
+        <a href="/active_loans" class="card-link">
+            <div class="card-box danger">
+                <h3>Pending Loans</h3>
+                <p>{{ active_loans }}</p>
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+
+ <!-- <h2>Welcome to  SRM Loan Management System</h2> -->
+
+<div style="
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:80vh;
+    text-align:center;
+">
+
+    
+    <img src="{{ url_for('static', filename='SRM_logo.png') }}" 
+         style="max-width:800px;margin-bottom: 950px;opacity: 100%;">
+<
+
+</div>
+
+{% endblock %}

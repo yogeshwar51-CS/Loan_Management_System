@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 style="text-align:center; margin-top:30px;">Paid Loans</h2>
+
+<table>
+    <tr>
+        <th>S.No</th>
+        <th>Loan ID</th>
+        <th>User Name</th>
+        <th>Loan Amount</th>
+        <th>Interest (%)</th>
+        <th>Paid</th>
+    </tr>
+
+    {% for loan in loans %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ loan[0] }}</td>
+        <td>{{ loan[1] }}</td>
+        <td>₹ {{ loan[2] }}</td>
+        <td>{{ loan[3] }}%</td>
+        <td style="color:green; font-weight:bold;">
+            ₹ {{ loan[4] }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

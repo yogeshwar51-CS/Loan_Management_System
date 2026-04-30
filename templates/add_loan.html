@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card">
+
+        <h2>Add Loan</h2>
+
+        <form method="POST">
+
+            <!-- USER DROPDOWN -->
+            <label>Select User:</label>
+            <select name="user_id" required>
+                <option value="">-- Select User --</option>
+
+                {% for user in users %}
+                    <option value="{{ user[0] }}">
+                        {{ user[1] }} (ID: {{ user[0] }})
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- LOAN AMOUNT -->
+            <label>Loan Amount:</label>
+            <input type="number" id="amount" name="loan_amount" required>
+
+            <!-- INTEREST -->
+            <label>Interest Rate (%):</label>
+            <input type="number" id="rate" name="interest_rate" step="any" required>
+
+            <!-- TIME -->
+            <label>Time (years):</label>
+            <input type="number" id="time" name="time_years" required>
+
+            <button type="submit">Add Loan</button>
+
+            <a href="/view_loans" class="btn cancel-btn">Cancel</a>
+
+        </form>
+
+        <!-- 🔥 LIVE PREVIEW -->
+        <div class="result" id="preview" style="display:none;">
+            <h3>Loan Preview</h3>
+            EMI: ₹ <span id="emi"></span><br>
+            Total Interest: ₹ <span id="interest"></span><br>
+            Total Payment: ₹ <span id="total"></span>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function calculatePreview() {
+    let amount = parseFloat(document.getElementById('amount').value);
+    let rate = parseFloat(document.getElementById('rate').value);
+    let time = parseFloat(document.getElementById('time').value);
+
+    if (!amount || !rate || !time) {
+        document.getElementById('preview').style.display = "none";
+        return;
+    }
+
+    let r = rate / (12 * 100);
+    let n = time * 12;
+
+    let emi = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    emi = emi.toFixed(2);
+
+    let total = (emi * n).toFixed(2);
+    let interest = (total - amount).toFixed(2);
+
+    document.getElementById('emi').innerText = emi;
+    document.getElementById('total').innerText = total;
+    document.getElementById('interest').innerText = interest;
+
+    document.getElementById('preview').style.display = "block";
+}
+
+// 🔥 Auto update on input
+document.querySelectorAll('#amount, #rate, #time').forEach(input => {
+    input.addEventListener('input', calculatePreview);
+});
+</script>
+
+{% endblock %}

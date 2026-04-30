@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Apply Loan</title>
+
+<style>
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* TITLE */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ff9800;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e68900;
+}
+
+/* BACK LINK */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Apply Loan</h2>
+
+    <form method="POST">
+
+        <label>Loan Amount:</label>
+        <input type="number" name="amount" required>
+
+        <label>Interest Rate (%):</label>
+        <input type="number" name="interest" step="0.01" required>
+
+        <label>Time (Years):</label>
+        <input type="number" name="time" required>
+
+        <button type="submit">Apply Loan</button>
+
+    </form>
+
+    <a href="/user_dashboard">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

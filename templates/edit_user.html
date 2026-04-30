@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.form-container a {
+    display: block;
+    text-align: center;
+}
+
+
+</style>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Edit User</h2>
+
+        <form method="POST">
+
+            <!-- NAME -->
+            <label>Name:</label>
+            <input type="text" name="name" value="{{ user[1] }}" required>
+
+            <!-- EMAIL -->
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ user[2] }}" required>
+
+            <!-- PHONE -->
+            <label>Phone:</label>
+            <input type="text" name="phone" value="{{ user[3] }}" maxlength="10" required>
+
+            <!-- ADDRESS -->
+            <label>Address:</label>
+            <input type="text" name="address" value="{{ user[4] }}" required>
+
+            <button type="submit">Update User</button>
+
+        </form>
+
+        <a href="/view_users">⬅ Back</a>
+
+    </div>
+</div>
+
+{% endblock %}

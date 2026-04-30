@@ -1,0 +1,39 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let messages = {{ messages | tojson | safe }};
+
+    messages.forEach(function(item) {
+
+        let category = item[0];
+        let msg = item[1];
+
+        let icon = "info";
+
+        if (category === "success" || category === "payment_success") {
+            icon = "success";
+        } 
+        else if (category === "danger" || category === "error") {
+            icon = "error";
+        } 
+        else if (category === "warning") {
+            icon = "warning";
+        }
+
+        Swal.fire({
+            icon: icon,
+            title: msg,
+            confirmButtonText: "OK",
+            confirmButtonColor: "#3085d6"
+        });
+
+    });
+
+});
+</script>
+{% endif %}
+{% endwith %}

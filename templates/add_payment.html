@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card">
+
+        <h2>Make Payment</h2>
+
+        <form method="POST" id="paymentForm">
+
+            <!-- USER -->
+            <label>Select User:</label>
+            <select id="userSelect" name="user_id" required>
+                <option value="">-- Select User --</option>
+                {% for u in users %}
+                    <option value="{{ u[0] }}">{{ u[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- LOAN -->
+            <label>Select Loan:</label>
+            <select name="loan_id" id="loanSelect" required>
+                <option value="">-- Select Loan --</option>
+            </select>
+
+            <!-- INFO -->
+            <div id="loanInfo" style="margin-top:10px; display:none;">
+                <p>Total Loan: ₹ <span id="totalLoan"></span></p>
+                <p>Total Paid: ₹ <span id="totalPaid"></span></p>
+                <p style="font-weight:bold;">Remaining: ₹ <span id="remaining"></span></p>
+            </div>
+
+            <!-- AMOUNT -->
+            <label>Amount Paid:</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <!-- METHOD -->
+            <label>Payment Method:</label>
+            <select name="method" required>
+                <option value="">Select Method</option>
+                <option value="UPI">UPI</option>
+                <option value="Cash">Cash</option>
+                <option value="Net Banking">Net Banking</option>
+                <option value="Card">Card</option>
+                <option value="NTFS">NTFS</option>
+            </select>
+
+            <button type="submit">Pay</button>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+/* ✅ FIX: use safe + default to avoid red errors */
+const loans = JSON.parse('{{ loans | tojson | safe }}');
+const payments = JSON.parse('{{ payments | tojson | safe }}');
+
+// USER CHANGE → LOAD LOANS
+document.getElementById("userSelect").addEventListener("change", function () {
+
+    let userId = this.value;
+    let loanSelect = document.getElementById("loanSelect");
+
+    loanSelect.innerHTML = '<option value="">-- Select Loan --</option>';
+
+    if (!userId) return;
+
+    loans.forEach(function (loan) {
+
+        // loan = [loan_id, user_id, amount, status]
+        if (loan[1] == userId) {
+
+            let option = document.createElement("option");
+            option.value = loan[0];
+
+            if (loan[3] === "Closed") {
+                option.text = "Loan ID: " + loan[0] + " (Closed)";
+                option.disabled = true;
+                option.style.color = "gray";
+            } else {
+                option.text = "Loan ID: " + loan[0];
+            }
+
+            loanSelect.appendChild(option);
+        }
+
+    });
+
+});
+
+
+// LOAN SELECT → CALCULATE
+document.getElementById("loanSelect").addEventListener("change", function () {
+
+    let loanId = this.value;
+    if (!loanId) return;
+
+    let loan = loans.find(l => l[0] == loanId);
+    let totalLoan = parseFloat(loan[2]);
+
+    let totalPaid = 0;
+
+    payments.forEach(p => {
+        if (p[0] == loanId) {
+            totalPaid += parseFloat(p[1]);
+        }
+    });
+
+    let remaining = totalLoan - totalPaid;
+
+    document.getElementById("totalLoan").innerText = totalLoan;
+    document.getElementById("totalPaid").innerText = totalPaid;
+    document.getElementById("remaining").innerText = remaining;
+
+    document.getElementById("loanInfo").style.display = "block";
+
+    let btn = document.querySelector("button[type='submit']");
+
+    if (remaining <= 0) {
+        btn.disabled = true;
+        btn.innerText = "Loan Fully Paid ✅";
+    } else {
+        btn.disabled = false;
+        btn.innerText = "Pay";
+    }
+
+});
+
+
+// PREVENT OVERPAYMENT
+document.getElementById("paymentForm").addEventListener("submit", function (e) {
+
+    let amount = parseFloat(document.getElementById("amount").value);
+    let remaining = parseFloat(document.getElementById("remaining").innerText);
+
+    if (amount > remaining) {
+        alert("❌ Payment exceeds remaining amount!");
+        e.preventDefault();
+    }
+
+});
+</script>
+
+{% endblock %}

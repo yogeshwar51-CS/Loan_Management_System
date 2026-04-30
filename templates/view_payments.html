@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Payments</h2>
+
+<form method="GET" style="margin-bottom:20px;">
+    <input type="text" name="search"
+           placeholder="Search by name, loan ID, method"
+           value="{{ request.args.get('search','') }}">
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <tr>
+        <th>S.No</th>
+        <th>Loan ID</th>
+        <th>User</th>
+        <th>Loan Amount</th>
+        <th>Amount Paid</th>
+        <th>Date</th>
+        <th>Method</th>
+    </tr>
+
+    {% for p in payments %}
+    <tr>
+        <td>{{ loop.index }}</td>
+
+        <td>{{ p[2] }}</td>  <!-- Loan ID ✅ -->
+        <td>{{ p[1] }}</td>  <!-- User Name ✅ -->
+        <td>₹ {{ p[3] }}</td> <!-- Loan Amount ✅ -->
+        <td>₹ {{ p[4] }}</td> <!-- Amount Paid ✅ -->
+        <td>{{ p[6] }}</td>  <!-- Date ✅ -->
+
+        <td>
+            {% if p[5] %}
+                <span style="color:green; font-weight:bold;">{{ p[5] }}</span>
+            {% else %}
+                <span style="color:red; font-weight:bold;">Not Set</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div style="margin-top:20px;">
+
+    {% if request.args.get('page', 1)|int > 1 %}
+        <a href="?page={{ request.args.get('page', 1)|int - 1 }}&search={{ request.args.get('search','') }}">
+            ⬅️ Previous
+        </a>
+    {% endif %}
+
+    <a href="?page={{ request.args.get('page', 1)|int + 1 }}&search={{ request.args.get('search','') }}">
+        Next ➡️
+    </a>
+
+</div>
+
+{% include 'flash_messages.html' %}
+
+{% endblock %}

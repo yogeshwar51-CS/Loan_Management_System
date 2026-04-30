@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="premium-container">
+
+    <div class="login-card">
+
+        <!-- LOGO -->
+        <img src="{{ url_for('static', filename='SRM_circle_LOGO.png') }}" 
+             style="max-width:100px; opacity:1; margin-bottom:15px;">
+
+        <!-- TITLE -->
+        <h2>Welcome</h2>
+        <p class="subtitle">SRM Student Loan Management System</p>
+
+        <!-- BUTTONS -->
+        <a href="/admin_login" class="btn admin">
+            Admin Login
+        </a>
+
+        <a href="/user_login" class="btn user">
+            User Login
+        </a>
+
+    </div>
+
+</div>
+
+<style>
+
+/* 🌈 FULL SCREEN CENTER */
+.premium-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🧊 GLASS CARD */
+.login-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 320px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    color: white;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ✨ TITLE */
+.login-card h2 {
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+
+.subtitle {
+    margin-bottom: 25px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* 🔘 BUTTON BASE */
+.btn {
+    display: block;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* 🟩 ADMIN */
+.admin {
+    background: #28a745;
+    color: white;
+}
+
+.admin:hover {
+    background: #218838;
+    transform: scale(1.05);
+}
+
+/* 🟧 USER */
+.user {
+    background: #ff9800;
+    color: white;
+}
+
+.user:hover {
+    background: #e68900;
+    transform: scale(1.05);
+}
+
+/* 🎬 ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+{% include 'flash_messages.html' %}
+
+{% endblock %}
